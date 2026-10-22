@@ -45,7 +45,7 @@ const pages = {
       ],
       [
         "Your controls",
-        "Choose what to submit, remove identifiers, use reduced effects, and reset the report when finished. Copying or printing creates a copy under your control. No public report links are created.",
+        "Choose what to submit, remove identifiers, and reset the report when finished. Animations respect your device's reduced-motion preference. Copying or printing creates a copy under your control. No public report links are created.",
       ],
     ],
   },

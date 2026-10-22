@@ -300,13 +300,6 @@ p {
 .language option {
   background: var(--surface);
 }
-.effects-button {
-  border: 0;
-  background: none;
-  color: var(--muted);
-  font-size: 10px;
-  padding: 10px 0;
-}
 .nav-cta {
   font-size: 11px;
   min-height: 38px;
@@ -1777,11 +1770,6 @@ textarea:focus {
 .paused * {
   animation-play-state: paused !important;
 }
-.reduced-effects * {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
-}
 @media (min-width: 1500px) {
   .hero-layout {
     min-height: 690px;
@@ -1796,9 +1784,6 @@ textarea:focus {
   }
   .header-actions {
     gap: 12px;
-  }
-  .effects-button {
-    display: none;
   }
   .hero-layout {
     gap: 30px;

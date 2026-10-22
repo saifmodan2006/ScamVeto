@@ -21,7 +21,7 @@ AI analysis requires **both** `GEMINI_API_KEY` and `GEMINI_MODEL`. Choose a curr
 
 ## Implemented
 
-- Responsive dark interface, original SVG identity, radar illustration, terminal, keyboard navigation, reduced motion/effects, mobile navigation and 320px layouts.
+- Responsive dark interface, original SVG identity, radar illustration, terminal, keyboard navigation, reduced-motion support, mobile navigation and 320px layouts. Effects are enabled by default with no manual toggle.
 - Five anonymous checker workflows, real server API handlers, client/server validation and ephemeral report display. No public report URLs or default persistence.
 - HTTP(S) parsing and normalization with `tldts` public/private suffix handling; misleading user information, deceptive brand references, encoded paths and contextual IDN/HTTP indicators. IP and local hostnames are rejected. **No submitted destination is fetched or crawled.**
 - Contextual message/job/shop rules for security codes, credentials, advance fees, urgency, remote access, payment methods, prizes and return guarantees. Optional recruiter-domain comparison is contextual, never identity verification.

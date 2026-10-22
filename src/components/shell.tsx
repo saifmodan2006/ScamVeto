@@ -9,7 +9,6 @@ import type { Locale } from "@/lib/validation/schemas";
 export function Header() {
   const { t, locale, setLocale } = useLocale();
   const [open, setOpen] = useState(false);
-  const [effects, setEffects] = useState(true);
   return (
     <header className="site-header">
       <div className="container header-inner">
@@ -34,20 +33,6 @@ export function Header() {
               <option value="gu">ગુજરાતી</option>
             </select>
           </label>
-          <button
-            className="effects-button"
-            aria-pressed={!effects}
-            onClick={() => {
-              setEffects(!effects);
-              document.documentElement.classList.toggle(
-                "reduced-effects",
-                effects,
-              );
-            }}
-            title="Toggle reduced effects"
-          >
-            {effects ? "Effects on" : "Effects off"}
-          </button>
           <CyberButton asChild className="nav-cta">
             <Link href="/check/url">
               {t.start}
