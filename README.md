@@ -118,4 +118,4 @@ There are no tracking analytics, visitor profiles, public reports or third-party
 
 Read [deployment instructions](docs/DEPLOYMENT.md), [security architecture](docs/SECURITY.md) and the [release checklist](docs/RELEASE_CHECKLIST.md).
 
-The private repository includes a GitHub Actions workflow. Remote Actions are initially disabled to avoid activating account-billed CI without reviewing the account's allowance; local checks have been executed. Enable repository Actions after that operational review.
+The project repository is [saifmodan2006/ScamVeto](https://github.com/saifmodan2006/ScamVeto). It includes a GitHub Actions verification workflow. Provider credentials are local environment settings and are never committed to the repository.

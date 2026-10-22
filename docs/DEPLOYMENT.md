@@ -20,7 +20,7 @@ Set `TRUSTED_PROXY=vercel`. The production adapter intentionally requires the pl
 
 ## 4. Vercel project
 
-Import the private GitHub repository through your approved Vercel account. Choose the Next.js framework, Node 24, `npm ci`, and `npm run build`. Installation copies OCR runtime assets into `public/ocr/`; keep the postinstall enabled or run the preparation script explicitly before build. Add environment variables separately for preview and production. The API route declares `maxDuration=60`; ensure the chosen hosting plan permits it and that request limits meet the workload.
+Import [saifmodan2006/ScamVeto](https://github.com/saifmodan2006/ScamVeto) through your approved Vercel account. Choose the Next.js framework, Node 24, `npm ci`, and `npm run build`. Installation copies OCR runtime assets into `public/ocr/`; keep the postinstall enabled or run the preparation script explicitly before build. Add environment variables separately for preview and production. The API route declares `maxDuration=60`; ensure the chosen hosting plan permits it and that request limits meet the workload.
 
 Use the actual deployment origin for `APP_BASE_URL`, including `https://` and without a trailing slash. Set Turnstile hostnames to match. Do not assume a domain is owned. Review Vercel preview deployment authentication; avoid exposing cost-bearing preview APIs casually.
 

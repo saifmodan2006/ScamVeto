@@ -47,4 +47,4 @@ The development application uses the local credential. Public production analysi
 - English/Hindi/Gujarati core UX and deterministic guidance are implemented; editorial/legal content and some secondary UI copy remain English. Native-speaker translation review remains a launch task.
 - No public Vercel deployment, domain purchase or paid infrastructure activation was performed.
 
-The GitHub source repository is private. Its prepared CI workflow is initially disabled remotely; these results are local command results, not claimed remote CI results.
+The source was subsequently connected to the operator-supplied public repository, [saifmodan2006/ScamVeto](https://github.com/saifmodan2006/ScamVeto), preserving its initial commit. Its existing Actions setting is enabled. The test counts above are local command results, not claimed remote CI results. Provider credentials remain in Git-ignored local configuration.
