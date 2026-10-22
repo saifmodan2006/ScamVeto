@@ -31,9 +31,15 @@ The checked-in [Lighthouse summary](lighthouse-summary.json) records a mobile la
 
 Desktop and mobile previews were captured from the production build with reduced motion. They are visual artifacts, not fabricated threat telemetry.
 
-## Not validated against provisioned external services
+## Live Gemini follow-up verification
 
-- No real Gemini request was made: provider credentials/model configuration were not supplied. The SDK adapter was exercised with controlled responses and errors; missing configuration was also tested through the actual local HTTP endpoint.
+On 23 October 2026, the operator supplied a Gemini credential. It was stored only in Git-ignored `.env.local`; it was not committed or pushed. Model discovery succeeded. After selecting an available model, a synthetic recruiter-fee submission through the actual development HTTP endpoint returned **HTTP 200**, `aiAvailable:true`, a validated interpretation and `SUSPICIOUS_INDICATORS`. The configured model was `gemini-3.5-flash`; Google reported model version `gemini-3.6-flash`. No private user content was used in this request.
+
+The development application uses the local credential. Public production analysis still requires the separate Turnstile, Redis and trusted-ingress configuration described in DEPLOYMENT.md.
+
+## Remaining external-service validation
+
+- Gemini was validated with one successful end-to-end synthetic analysis as recorded above. Automated tests continue to use controlled provider fixtures and do not depend on the live credential.
 - No real Google Web Risk lookup was made. The genuine adapter was validated with controlled match, nonmatch, malformed and timeout responses.
 - No production Turnstile widget/site verification or cross-instance Redis service was provisioned. Request validation, server verification behavior and fail-closed conditions were tested with controlled fixtures.
 - Supabase RLS migration was not run against a database. Accounts, saved-report endpoints, retention jobs and account deletion remain future features; no user-data persistence is enabled.
