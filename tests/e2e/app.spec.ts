@@ -99,13 +99,17 @@ for (const type of ["url", "message", "job", "shop", "screenshot"])
           ? "https://example.com"
           : "Pay a registration fee before your interview.",
       );
-    await page.getByRole("checkbox").check();
+    await page.locator(".consent input").check();
     await page.getByRole("button", { name: "Analyze submission" }).click();
+    if (type === "url")
+      await page.getByRole("button", { name: "View full report" }).click();
     await expect(
       page.getByRole("heading", { level: 2, name: fixture.summary }),
     ).toBeVisible();
     await expect(
-      page.getByText("Suspicious indicators", { exact: true }),
+      page
+        .locator(".report-panel")
+        .getByText("Suspicious indicators", { exact: true }),
     ).toBeVisible();
     await expect(page.locator(".report-panel")).not.toContainText(
       /Gemini|Google Web Risk|Technical details|No lookup completed/i,
@@ -141,7 +145,7 @@ test("honest service failure and loading state", async ({ page }) => {
   await page
     .getByLabel("Content to examine", { exact: true })
     .fill("Test message content");
-  await page.getByRole("checkbox").check();
+  await page.locator(".consent input").check();
   await page.getByRole("button", { name: "Analyze submission" }).click();
   await expect(
     page.getByRole("button", { name: "Analyzing submission…" }),
@@ -163,7 +167,7 @@ test("form validation and keyboard access", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "Skip to content" }),
   ).toBeFocused();
-  await page.getByRole("checkbox").check();
+  await page.locator(".consent input").check();
   await page.getByRole("button", { name: "Analyze submission" }).click();
   await expect(
     page.getByLabel("Website address", { exact: true }),

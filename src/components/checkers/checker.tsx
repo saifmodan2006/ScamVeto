@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   ArrowUpRight,
   ArrowLeft,
@@ -22,6 +22,9 @@ import {
   type Report,
 } from "@/lib/validation/schemas";
 import { PrivacyRedactionService } from "@/lib/security/privacy";
+import { LinkResultPopup } from "./link-result-popup";
+import { ResultSound } from "@/lib/result-sound";
+import { linkResultCopy } from "@/lib/i18n/link-result";
 const ImageUpload = dynamic(
   () => import("./image-upload").then((m) => m.ImageUpload),
   { loading: () => <p>Loading image tools…</p> },
@@ -39,12 +42,35 @@ export function Checker({ type }: { type: AnalysisType }) {
   const [resetKey, setResetKey] = useState(0);
   const [stage, setStage] = useState("");
   const [imageReset, setImageReset] = useState(0);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const soundEnabledRef = useRef(true);
+  const sound = useRef<ResultSound | null>(null);
+  const reportRegion = useRef<HTMLDivElement>(null);
+  useEffect(
+    () => () => {
+      sound.current?.dispose();
+    },
+    [],
+  );
   const formRef = useRef<HTMLFormElement>(null);
   const contentRef = useRef<HTMLTextAreaElement | HTMLInputElement>(null);
   const onToken = useCallback((v: string) => setToken(v), []);
+  function showFailure(message: string) {
+    setError(message);
+    if (type === "url") {
+      setPopupOpen(true);
+      if (soundEnabledRef.current) sound.current?.play("ANALYSIS_UNAVAILABLE");
+    }
+  }
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy) return;
+    setPopupOpen(false);
+    if (type === "url" && soundEnabledRef.current) {
+      sound.current ??= new ResultSound();
+      void sound.current.prepare();
+    }
     setBusy(true);
     setReport(undefined);
     setError("");
@@ -85,18 +111,27 @@ export function Checker({ type }: { type: AnalysisType }) {
         signal: AbortSignal.timeout(60000),
       });
       const result = await response.json();
-      if (result.report) setReport(reportSchema.parse(result.report));
-      if (!response.ok)
-        setError(
+      if (result.report) {
+        const parsed = reportSchema.parse(result.report);
+        setReport(parsed);
+        if (type === "url") {
+          setPopupOpen(true);
+          if (soundEnabledRef.current) sound.current?.play(parsed.outcome);
+        }
+      }
+      if (!response.ok) {
+        const message =
           result.error?.code === "CONFIGURATION_REQUIRED"
             ? t.configuration
             : result.report
               ? t.unavailable
-              : (result.error?.message ?? t.retry),
-        );
+              : (result.error?.message ?? t.retry);
+        if (result.report) setError(message);
+        else showFailure(message);
+      }
       setStage("");
     } catch (e) {
-      setError(
+      showFailure(
         e instanceof Error && e.name === "TimeoutError"
           ? "The request timed out. Please retry."
           : e instanceof Error
@@ -111,6 +146,8 @@ export function Checker({ type }: { type: AnalysisType }) {
     }
   }
   function reset() {
+    setPopupOpen(false);
+    sound.current?.stop();
     formRef.current?.reset();
     setImageReset((v) => v + 1);
     setReport(undefined);
@@ -171,7 +208,12 @@ export function Checker({ type }: { type: AnalysisType }) {
                     id="content"
                     name="content"
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    disabled={busy}
+                    onChange={(e) => {
+                      setContent(e.target.value);
+                      setReport(undefined);
+                      setError("");
+                    }}
                     placeholder="https://example.com"
                     required
                     minLength={3}
@@ -248,6 +290,23 @@ export function Checker({ type }: { type: AnalysisType }) {
                 <span>{t.consent}</span>
               </label>
               <Turnstile onToken={onToken} resetKey={resetKey} />
+              {type === "url" && (
+                <label className="result-sound-option">
+                  <input
+                    type="checkbox"
+                    checked={soundEnabled}
+                    onChange={(e) => {
+                      setSoundEnabled(e.target.checked);
+                      soundEnabledRef.current = e.target.checked;
+                      if (!e.target.checked) sound.current?.stop();
+                    }}
+                  />
+                  <span>
+                    {linkResultCopy[locale].sound}
+                    <small>{linkResultCopy[locale].soundHelp}</small>
+                  </span>
+                </label>
+              )}
               <CyberButton
                 type="submit"
                 disabled={
@@ -306,7 +365,7 @@ export function Checker({ type }: { type: AnalysisType }) {
             {t.privacyBody} <Link href="/privacy">Privacy details ↗</Link>
           </p>
         </div>
-        <div className="report-workspace">
+        <div ref={reportRegion} className="report-workspace">
           {report ? (
             <ReportView report={report} onReset={reset} />
           ) : (
@@ -344,6 +403,26 @@ export function Checker({ type }: { type: AnalysisType }) {
           )}
         </div>
       </div>
+      {type === "url" && (
+        <LinkResultPopup
+          report={report}
+          failure={error}
+          open={popupOpen}
+          onClose={() => setPopupOpen(false)}
+          onReset={reset}
+          onDetails={() => {
+            const heading = reportRegion.current?.querySelector("h2");
+            heading?.focus({ preventScroll: true });
+            reportRegion.current?.scrollIntoView({
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "instant"
+                : "smooth",
+              block: "start",
+            });
+          }}
+        />
+      )}
     </main>
   );
 }

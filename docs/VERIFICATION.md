@@ -31,6 +31,14 @@ Provider branding, model metadata and repeated implementation caveats were remov
 
 This update passed TypeScript, ESLint, the production build, **90 unit/integration tests across 7 files**, and **32 desktop/mobile UI browser tests**. The added browser assertions check that public pages and reports do not display model branding or environment-variable instructions. The earlier separate real OCR verification remains recorded above; it was not rerun for this wording update.
 
+## Pasted-link popup and sound update — 23 October 2026
+
+Pasted-link checks now show a keyboard-accessible result dialog. All five server outcomes have distinct status text and appropriate visual states. Optional Web Audio signals distinguish completion, caution, known threats and incomplete/unknown results; no signal certifies safety. Muting before or during a request suppresses the signal, and browser audio restrictions fall back to the visual result. Link inputs are locked during a request and edits clear stale results. The destination is never automatically opened.
+
+Validation passed TypeScript, ESLint, the production build and **93 unit/integration tests across 8 files**. **20 new desktop/mobile popup browser checks passed**, covering every outcome, sound behavior, mute, Escape, focus return, reset, failure handling, Hindi and a 320px Axe scan. The existing checker suite's 30 unaffected checks passed; its two URL report checks also passed after scoping their text assertion to the report rather than the closed popup. The separate real OCR tests were not rerun for this feature.
+
+The popup preview, when shown in project documentation, uses a clearly identified synthetic report and is not a live threat finding.
+
 ## Performance
 
 The checked-in [Lighthouse summary](lighthouse-summary.json) records a mobile laboratory run against the local **production** server. It is not field Core Web Vitals data or a guarantee about hosting/device performance. The first run identified animation startup costs; Motion was removed from the homepage and retained for report transitions, and continuous decorative animations were disabled on touch devices. Final measurements are recorded in the summary artifact.
