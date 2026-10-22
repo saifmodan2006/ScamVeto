@@ -53,9 +53,7 @@ export function Checker({ type }: { type: AnalysisType }) {
     try {
       if (content.trim().length < 3)
         throw new Error("Enter at least 3 characters.");
-      setStage(
-        "Waiting for server analysis. Provider availability will appear in the report.",
-      );
+      setStage("Reviewing your submission…");
       const body = {
         content:
           type === "url" ? content : PrivacyRedactionService.redact(content),
@@ -203,7 +201,7 @@ export function Checker({ type }: { type: AnalysisType }) {
                 )}
                 <span className="field-help">
                   {type === "url"
-                    ? "HTTP and HTTPS only. We never open or crawl the destination."
+                    ? "Enter a website address, such as https://example.com."
                     : `${content.length.toLocaleString(locale)} / 12,000`}
                 </span>
               </div>

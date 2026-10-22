@@ -36,7 +36,10 @@ const fixture = {
   actions: ["Verify through official recruitment channels."],
   limitations: ["Not proof of fraud."],
   timestamp: "2026-10-22T12:00:00Z",
-  metadata: { model: "browser-test-fixture" },
+  metadata: {
+    model: "gemini-browser-test-fixture",
+    reputationProvider: "Google Web Risk",
+  },
 };
 test("home, navigation, mobile menu, and no overflow", async ({
   page,
@@ -104,6 +107,9 @@ for (const type of ["url", "message", "job", "shop", "screenshot"])
     await expect(
       page.getByText("Suspicious indicators", { exact: true }),
     ).toBeVisible();
+    await expect(page.locator(".report-panel")).not.toContainText(
+      /Gemini|Google Web Risk|Technical details|No lookup completed/i,
+    );
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -179,6 +185,20 @@ test("locale selection and reduced effects", async ({ page }) => {
       .locator(".radar-sweep")
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");
+});
+test("public pages use product language without model branding", async ({
+  page,
+}) => {
+  for (const path of ["/", "/about", "/privacy", "/check/message"]) {
+    await page.goto(path);
+    await expect(page.locator("main")).not.toContainText(
+      /Gemini|GEMINI_API_KEY|\.env\.local/,
+    );
+  }
+  await page.getByRole("combobox").selectOption("hi");
+  await expect(page.locator("main")).not.toContainText(/Gemini|GEMINI_API_KEY/);
+  await page.getByRole("combobox").selectOption("gu");
+  await expect(page.locator("main")).not.toContainText(/Gemini|GEMINI_API_KEY/);
 });
 test("screenshot rejects disguised file", async ({ page }) => {
   await page.goto("/check/screenshot");

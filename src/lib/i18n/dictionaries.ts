@@ -40,33 +40,50 @@ export const dictionaries = {
     privacyBody:
       "No compulsory login. No saved submissions. Recognizable sensitive details are masked before AI analysis. Redaction can miss information: remove private details yourself.",
     consent:
-      "I have removed personal information. Send the redacted text to Gemini and query supported URLs with Google Web Risk when configured.",
+      "I have removed personal information and agree to send this content to the analysis services described in the privacy policy.",
     noSecrets:
       "Never enter passwords, one-time codes, full card numbers, or banking secrets.",
     report: "Analysis report",
     evidence: "What we observed",
-    checks: "Checks & availability",
+    checks: "Review scope",
+    interpretation: "What this means",
+    completed: "Completed",
+    unavailableCheck: "Unavailable",
+    notApplicable: "Not needed for this submission",
+    automatedCheck: "Content analysis",
+    patternCheck: "Warning signs",
+    reputationCheck: "Link reputation",
+    privacyCheck: "Privacy protection",
+    otherCheck: "Additional check",
+    scopeNote:
+      "Based on the information you supplied and the checks available at the time. Confirm important requests independently.",
+    limitedReview:
+      "Some checks could not be completed. Treat these findings as a limited review.",
+    emptyEvidence:
+      "The completed checks identified no supporting warning signs. Verify important requests independently.",
+    observedPattern: "Observed pattern",
+    threatMatch: "Threat-list match",
+    aiAssessment: "AI assessment",
     actions: "What to do next",
-    limitations: "What this report cannot tell you",
+    limitations: "Review notes",
     newCheck: "Start a new check",
     copy: "Copy redacted report",
     print: "Print report",
-    details: "Technical details",
     unavailable:
       "AI analysis is unavailable. Completed checks appear below; this is an incomplete report.",
     configuration:
-      "AI analysis needs server configuration. Add GEMINI_API_KEY and GEMINI_MODEL to .env.local.",
+      "Analysis is temporarily unavailable. Please try again later.",
     retry: "Please try again.",
     example: "Use a synthetic example",
     empty: "Your report will appear here",
     emptyBody:
-      "We explain what was checked, what looks unusual, and what remains unknown.",
+      "Your findings, supporting details, and next steps will appear here.",
     upload: "Choose or drop a screenshot",
     ocr: "Extract text on this device",
     remove: "Remove image",
     extracted: "Extracted text — review and correct",
     ocrNotice:
-      "OCR runs in your browser. Language files download from the OCR provider; your image stays on this device.",
+      "Your image stays on this device. Review and edit the extracted text before analysis.",
     review: "Review text",
     outcomes: {
       KNOWN_MALICIOUS: "Known threat-list match",
@@ -111,32 +128,47 @@ export const dictionaries = {
     privacyBody:
       "लॉगिन अनिवार्य नहीं। सामग्री सहेजी नहीं जाती। AI से पहले पहचानी गई निजी जानकारी छिपाई जाती है। कुछ जानकारी छूट सकती है; स्वयं भी हटाएँ।",
     consent:
-      "मैंने निजी जानकारी हटा दी है। छिपाया गया टेक्स्ट Gemini को और समर्थित URL उपलब्ध होने पर Google Web Risk को भेजें।",
+      "मैंने निजी जानकारी हटा दी है और गोपनीयता नीति में बताई गई विश्लेषण सेवाओं को यह सामग्री भेजने की सहमति देता/देती हूँ।",
     noSecrets: "पासवर्ड, OTP, पूरा कार्ड नंबर या बैंकिंग रहस्य कभी न डालें।",
     report: "विश्लेषण रिपोर्ट",
     evidence: "दिखाई दिए संकेत",
-    checks: "जाँच और उपलब्धता",
+    checks: "जाँच का दायरा",
+    interpretation: "इसका क्या अर्थ है",
+    completed: "पूरी हुई",
+    unavailableCheck: "अनुपलब्ध",
+    notApplicable: "इस सामग्री के लिए आवश्यक नहीं",
+    automatedCheck: "सामग्री विश्लेषण",
+    patternCheck: "चेतावनी संकेत",
+    reputationCheck: "लिंक की प्रतिष्ठा",
+    privacyCheck: "गोपनीयता सुरक्षा",
+    otherCheck: "अतिरिक्त जाँच",
+    scopeNote:
+      "यह समीक्षा दी गई जानकारी और उस समय उपलब्ध जाँच पर आधारित है। महत्वपूर्ण अनुरोधों का स्वतंत्र सत्यापन करें।",
+    limitedReview:
+      "कुछ जाँच पूरी नहीं हो सकीं। इन निष्कर्षों को सीमित समीक्षा मानें।",
+    emptyEvidence:
+      "पूरी हुई जाँच में सहायक चेतावनी संकेत नहीं मिले। महत्वपूर्ण अनुरोधों का स्वतंत्र सत्यापन करें।",
+    observedPattern: "देखा गया पैटर्न",
+    threatMatch: "खतरा सूची में मिला",
+    aiAssessment: "AI आकलन",
     actions: "अगला कदम",
-    limitations: "रिपोर्ट की सीमाएँ",
+    limitations: "समीक्षा संबंधी जानकारी",
     newCheck: "नई जाँच",
     copy: "छिपाई गई रिपोर्ट कॉपी करें",
     print: "रिपोर्ट प्रिंट करें",
-    details: "तकनीकी विवरण",
     unavailable:
       "AI विश्लेषण उपलब्ध नहीं है। नीचे केवल पूरी हुई जाँच हैं; रिपोर्ट अधूरी है।",
-    configuration:
-      "AI के लिए सर्वर कॉन्फ़िगरेशन चाहिए। .env.local में GEMINI_API_KEY और GEMINI_MODEL जोड़ें।",
+    configuration: "विश्लेषण फिलहाल उपलब्ध नहीं है। कृपया बाद में कोशिश करें।",
     retry: "कृपया फिर कोशिश करें।",
     example: "काल्पनिक उदाहरण भरें",
     empty: "आपकी रिपोर्ट यहाँ दिखेगी",
-    emptyBody:
-      "क्या जाँचा गया, क्या असामान्य है और क्या अज्ञात है — स्पष्ट देखें।",
+    emptyBody: "आपके निष्कर्ष, सहायक जानकारी और अगले कदम यहाँ दिखेंगे।",
     upload: "स्क्रीनशॉट चुनें या छोड़ें",
     ocr: "इस डिवाइस पर टेक्स्ट निकालें",
     remove: "चित्र हटाएँ",
     extracted: "निकाला गया टेक्स्ट — जाँचें और सुधारें",
     ocrNotice:
-      "OCR ब्राउज़र में चलता है। भाषा फ़ाइलें डाउनलोड होती हैं; चित्र इस डिवाइस पर रहता है।",
+      "आपका चित्र इस डिवाइस पर रहता है। विश्लेषण से पहले निकाले गए टेक्स्ट की समीक्षा और सुधार करें।",
     review: "टेक्स्ट की समीक्षा करें",
     outcomes: {
       KNOWN_MALICIOUS: "खतरा सूची में मिला",
@@ -181,32 +213,48 @@ export const dictionaries = {
     privacyBody:
       "લોગિન ફરજિયાત નથી. સામગ્રી સાચવાતી નથી. AI પહેલાં ઓળખાયેલી ખાનગી માહિતી ઢંકાય છે. કેટલીક માહિતી રહી શકે છે; જાતે પણ દૂર કરો.",
     consent:
-      "મેં ખાનગી માહિતી દૂર કરી છે. ઢંકાયેલું લખાણ Gemini ને અને સમર્થિત URL ઉપલબ્ધ હોય ત્યારે Google Web Risk ને મોકલો.",
+      "મેં ખાનગી માહિતી દૂર કરી છે અને ગોપનીયતા નીતિમાં જણાવેલી વિશ્લેષણ સેવાઓને આ સામગ્રી મોકલવાની સંમતિ આપું છું.",
     noSecrets:
       "પાસવર્ડ, OTP, સંપૂર્ણ કાર્ડ નંબર કે બેંકિંગ રહસ્યો ક્યારેય ન આપો.",
     report: "વિશ્લેષણ અહેવાલ",
     evidence: "જોવા મળેલા સંકેતો",
-    checks: "તપાસ અને ઉપલબ્ધતા",
+    checks: "સમીક્ષાનો વ્યાપ",
+    interpretation: "આનો અર્થ શું છે",
+    completed: "પૂર્ણ",
+    unavailableCheck: "અનુપલબ્ધ",
+    notApplicable: "આ સામગ્રી માટે જરૂરી નથી",
+    automatedCheck: "સામગ્રીનું વિશ્લેષણ",
+    patternCheck: "ચેતવણીના સંકેતો",
+    reputationCheck: "લિંકની પ્રતિષ્ઠા",
+    privacyCheck: "ગોપનીયતા સુરક્ષા",
+    otherCheck: "વધારાની તપાસ",
+    scopeNote:
+      "આ સમીક્ષા આપેલી માહિતી અને તે સમયે ઉપલબ્ધ તપાસ પર આધારિત છે. મહત્વપૂર્ણ વિનંતીઓની સ્વતંત્ર ચકાસણી કરો.",
+    limitedReview:
+      "કેટલીક તપાસ પૂર્ણ થઈ શકી નથી. આ તારણોને મર્યાદિત સમીક્ષા માનો.",
+    emptyEvidence:
+      "પૂર્ણ થયેલી તપાસમાં આધારભૂત ચેતવણી સંકેતો મળ્યા નથી. મહત્વપૂર્ણ વિનંતીઓની સ્વતંત્ર ચકાસણી કરો.",
+    observedPattern: "જોવા મળેલી પેટર્ન",
+    threatMatch: "જોખમ સૂચિમાં મળ્યું",
+    aiAssessment: "AI આકલન",
     actions: "આગળનું પગલું",
-    limitations: "અહેવાલની મર્યાદાઓ",
+    limitations: "સમીક્ષાની નોંધો",
     newCheck: "નવી તપાસ",
     copy: "ખાનગી માહિતી વગરનો અહેવાલ કોપી કરો",
     print: "અહેવાલ પ્રિન્ટ કરો",
-    details: "તકનીકી વિગતો",
     unavailable:
       "AI વિશ્લેષણ ઉપલબ્ધ નથી. નીચે માત્ર પૂર્ણ થયેલી તપાસ છે; અહેવાલ અધૂરો છે.",
-    configuration:
-      "AI માટે સર્વર ગોઠવણી જરૂરી છે. .env.local માં GEMINI_API_KEY અને GEMINI_MODEL ઉમેરો.",
+    configuration: "વિશ્લેષણ અત્યારે ઉપલબ્ધ નથી. કૃપા કરીને પછી પ્રયાસ કરો.",
     retry: "ફરી પ્રયાસ કરો.",
     example: "કાલ્પનિક ઉદાહરણ ભરો",
     empty: "તમારો અહેવાલ અહીં દેખાશે",
-    emptyBody: "શું તપાસાયું, શું અસામાન્ય છે અને શું અજ્ઞાત છે — સ્પષ્ટ સમજો.",
+    emptyBody: "તમારા તારણો, આધારભૂત વિગતો અને આગળનાં પગલાં અહીં દેખાશે.",
     upload: "સ્ક્રીનશોટ પસંદ કરો અથવા મૂકો",
     ocr: "આ ઉપકરણ પર લખાણ કાઢો",
     remove: "ચિત્ર દૂર કરો",
     extracted: "કાઢેલું લખાણ — તપાસો અને સુધારો",
     ocrNotice:
-      "OCR બ્રાઉઝરમાં ચાલે છે. ભાષા ફાઇલો ડાઉનલોડ થાય છે; ચિત્ર આ ઉપકરણ પર રહે છે.",
+      "તમારું ચિત્ર આ ઉપકરણ પર રહે છે. વિશ્લેષણ પહેલાં કાઢેલા લખાણની સમીક્ષા અને સુધારો કરો.",
     review: "લખાણની સમીક્ષા કરો",
     outcomes: {
       KNOWN_MALICIOUS: "જોખમ સૂચિમાં મળ્યું",

@@ -124,7 +124,7 @@ export function Home() {
           </span>
           <span>
             <ShieldCheck />
-            Powered by Gemini
+            AI-assisted insights
           </span>
           <span>
             <LockKeyhole />
@@ -207,7 +207,7 @@ export function Home() {
                 n: "02",
                 icon: Search,
                 title: "Look at the evidence.",
-                text: "We combine URL and text checks, available threat intelligence, and Gemini interpretation.",
+                text: "Get a clear explanation of concerning patterns in the information you share.",
               },
               {
                 n: "03",
@@ -237,9 +237,8 @@ export function Home() {
             <span className="muted">A reason behind it.</span>
           </h2>
           <p className="section-copy">
-            A verdict without context doesn’t help you make a decision. Every
-            ScamVeto report separates observed warning signs from known threat
-            matches and tells you what couldn’t be checked.
+            Every ScamVeto report connects warning signs to the information
+            behind them and gives you practical steps to verify the request.
           </p>
           <ul className="check-list">
             <li>
@@ -274,7 +273,7 @@ export function Home() {
             </div>
             <h3>Pause. This request needs a closer look.</h3>
             <p>
-              In this synthetic message, a recruiter asks for an upfront
+              In this sample message, a recruiter asks for an upfront
               registration fee before arranging an interview.
             </p>
             <div className="example-quote">
@@ -296,7 +295,7 @@ export function Home() {
               </p>
             </div>
             <p className="small muted">
-              Demonstration only. No live provider check was performed.
+              Illustrative report using a sample message.
             </p>
           </div>
         </div>
@@ -382,7 +381,7 @@ export function Home() {
             ],
             [
               "What happens to what I submit?",
-              "Anonymous reports are not saved by ScamVeto. Recognizable personal information is redacted before Gemini receives the text. Supported URLs, without query strings or credentials, may be sent to Google Web Risk. Screenshots stay in your browser.",
+              "Your submission is used to prepare a private report. Recognizable personal details are masked before analysis, and screenshots stay in your browser. See the privacy policy for details about the services that process submissions.",
             ],
             [
               "Do I need an account?",
@@ -393,8 +392,8 @@ export function Home() {
               "Contact your bank immediately using an official channel, preserve messages and payment records, and report the incident. In India, call 1930 for financial cyber fraud and use cybercrime.gov.in.",
             ],
             [
-              "What happens when a provider is unavailable?",
-              "The report identifies completed and unavailable checks. Gemini failures return an incomplete report instead of a fabricated AI result.",
+              "What if my analysis is interrupted?",
+              "You can retry your submission. If only part of the analysis completes, your report clearly identifies it as a limited review.",
             ],
           ].map(([q, a]) => (
             <details key={q}>

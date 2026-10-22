@@ -7,15 +7,15 @@ const pages = {
     sections: [
       [
         "Why ScamVeto exists",
-        "A convincing message can make anyone pause. ScamVeto brings together rule-based indicators, available threat intelligence and Gemini explanations so you can understand the evidence and decide what to verify.",
+        "A convincing message can make anyone pause. ScamVeto explains concerning patterns and helps you decide what to verify before taking action.",
       ],
       [
         "How to read a report",
-        "A known threat match is different from a warning sign. A missing match is different from proof of safety. Each report separates these outcomes and identifies checks that did not run.",
+        "Start with the findings, read the supporting evidence, and follow the suggested next steps. A warning sign calls for closer verification; a known threat match calls for extra caution.",
       ],
       [
         "What is available",
-        "Anonymous checks for links, messages, job offers, shopping claims and screenshot text. AI requires server configuration. Accounts and saved history are future features. ScamVeto does not verify employers, perform background checks or decide whether a person is honest.",
+        "Choose a check for a link, message, job offer, shopping claim or screenshot text. Get a private report with understandable findings and practical verification guidance, without creating an account.",
       ],
     ],
   },
@@ -25,11 +25,11 @@ const pages = {
     sections: [
       [
         "What is processed",
-        "The text and optional details you submit are processed to create a report. Recognizable secrets, email addresses, phone numbers and long numerical identifiers are masked before text is sent to Google Gemini. Automated redaction is imperfect: remove personal data yourself before submitting.",
+        "The text and optional details you submit are processed to create a report. Recognizable secrets, email addresses, phone numbers and long numerical identifiers are masked before text is sent to Google's AI service. Remove personal data yourself before submitting, because automated redaction may miss information.",
       ],
       [
         "External providers",
-        "When configured, Google Gemini receives redacted text, URL properties and evidence for analysis. Google Web Risk receives supported HTTP/HTTPS URLs with credentials, query strings and fragments removed. This may reduce reputation coverage. Submitted websites are never opened or crawled by our server. Google’s applicable API terms and retention policies govern provider handling; this app cannot promise zero retention by providers.",
+        "Google's AI service receives redacted text, URL properties and evidence for analysis. When link reputation checks are available, Google's URL reputation service receives supported website addresses with credentials, query strings and fragments removed. Google's applicable service terms and retention policies govern its handling of this data. Submitted websites are not opened or crawled by our server.",
       ],
       [
         "Screenshots stay on your device",
@@ -128,7 +128,7 @@ export default async function Page({
           <p>
             Provider information:{" "}
             <a href="https://ai.google.dev/gemini-api/terms">
-              Gemini API terms
+              Google AI service terms
             </a>
             ,{" "}
             <a href="https://cloud.google.com/terms/cloud-privacy-notice">

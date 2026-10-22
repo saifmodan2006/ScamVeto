@@ -25,6 +25,12 @@ Tests exercise URL schemes and local/IP rejection, public/private suffix parsing
 
 Browser tests cover all five checker forms, controlled report rendering, loading/failure states, reset, consent/validation, keyboard navigation, mobile navigation, language switching, reduced motion, screenshot rejection/preview/removal, real OCR, content pages and 404 handling. Mocked analysis reports are only test fixtures and are never returned by production services.
 
+## Public-interface wording update — 23 October 2026
+
+Provider branding, model metadata and repeated implementation caveats were removed from the public interface. Reports now lead with findings and next steps, with a concise expandable review scope. Copied reports use readable text rather than internal JSON metadata. Missing checks still produce an explicit limited-review notice. The same presentation changes cover English, Hindi and Gujarati.
+
+This update passed TypeScript, ESLint, the production build, **90 unit/integration tests across 7 files**, and **32 desktop/mobile UI browser tests**. The added browser assertions check that public pages and reports do not display model branding or environment-variable instructions. The earlier separate real OCR verification remains recorded above; it was not rerun for this wording update.
+
 ## Performance
 
 The checked-in [Lighthouse summary](lighthouse-summary.json) records a mobile laboratory run against the local **production** server. It is not field Core Web Vitals data or a guarantee about hosting/device performance. The first run identified animation startup costs; Motion was removed from the homepage and retained for report transitions, and continuous decorative animations were disabled on touch devices. Final measurements are recorded in the summary artifact.

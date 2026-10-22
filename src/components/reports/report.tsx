@@ -16,6 +16,12 @@ import type { Report } from "@/lib/validation/schemas";
 import { useLocale } from "@/components/providers";
 import { CyberButton } from "@/components/ui/button";
 import { PrivacyRedactionService } from "@/lib/security/privacy";
+import {
+  checkLabel,
+  checkState,
+  reportCopy,
+  reviewNotes,
+} from "@/lib/public-report";
 export function ReportView({
   report,
   onReset,
@@ -35,9 +41,7 @@ export function ReportView({
     warning = report.outcome === "SUSPICIOUS_INDICATORS";
   async function copy() {
     try {
-      const safe = PrivacyRedactionService.redact(
-        JSON.stringify(report, null, 2),
-      );
+      const safe = PrivacyRedactionService.redact(reportCopy(report, locale));
       await navigator.clipboard.writeText(safe);
       setCopied(true);
     } catch {
@@ -81,21 +85,8 @@ export function ReportView({
         </p>
         {report.interpretation && (
           <section className="ai-interpretation">
-            <h3>
-              {locale === "hi"
-                ? "Gemini की व्याख्या"
-                : locale === "gu"
-                  ? "Gemini ની સમજૂતી"
-                  : "Gemini interpretation"}
-            </h3>
+            <h3>{t.interpretation}</h3>
             <p>{report.interpretation}</p>
-            <p className="small muted">
-              {locale === "hi"
-                ? "यह AI व्याख्या है, स्वतंत्र सत्यापन नहीं।"
-                : locale === "gu"
-                  ? "આ AI સમજૂતી છે, સ્વતંત્ર ચકાસણી નથી."
-                  : "AI interpretation, not independent verification."}
-            </p>
           </section>
         )}
         <section>
@@ -103,10 +94,7 @@ export function ReportView({
             {t.evidence} <span className="pill">{report.evidence.length}</span>
           </h3>
           {report.evidence.length === 0 ? (
-            <p className="muted">
-              No supporting indicators were identified by completed checks. That
-              does not establish safety.
-            </p>
+            <p className="muted">{t.emptyEvidence}</p>
           ) : (
             report.evidence.map((e) => (
               <details className="evidence-card" key={e.id} open>
@@ -115,10 +103,10 @@ export function ReportView({
                     {e.title}
                     <small>
                       {e.category === "heuristic"
-                        ? "Rule-based indicator"
+                        ? t.observedPattern
                         : e.category === "reputation"
-                          ? "Threat intelligence"
-                          : "Gemini interpretation"}{" "}
+                          ? t.threatMatch
+                          : t.aiAssessment}{" "}
                       · {e.strength}
                     </small>
                   </span>
@@ -134,30 +122,6 @@ export function ReportView({
           )}
         </section>
         <section>
-          <h3>{t.checks}</h3>
-          <ol className="checks-timeline">
-            {report.checks.map((c, i) => (
-              <li key={`${c.name}-${i}`}>
-                {c.state === "completed" ? (
-                  <CheckCircle2 size={17} className="green" />
-                ) : (
-                  <MinusCircle size={17} className="muted" />
-                )}
-                <div>
-                  <strong>
-                    {c.name}
-                    <span className="check-state">{c.state}</span>
-                  </strong>
-                  <p>{c.detail}</p>
-                  <time className="small dim">
-                    {new Date(c.at).toLocaleTimeString(locale)}
-                  </time>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </section>
-        <section>
           <h3>{t.actions}</h3>
           <ol className="actions-list">
             {report.actions.map((a, i) => (
@@ -168,35 +132,53 @@ export function ReportView({
             ))}
           </ol>
         </section>
+        {report.checks.some((c) => c.state === "unavailable") && (
+          <p className="report-caution">{t.limitedReview}</p>
+        )}
         <details className="technical">
           <summary>
-            {t.limitations}
+            {t.checks}
             <ChevronDown size={16} />
           </summary>
-          <ul>
-            {report.limitations.map((l, i) => (
-              <li key={i}>{l}</li>
-            ))}
-          </ul>
+          <p className="small muted">{t.scopeNote}</p>
+          <ol className="checks-timeline">
+            {report.checks
+              .filter((c) => c.state !== "not-applicable")
+              .map((c, i) => (
+                <li key={`${c.name}-${i}`}>
+                  {c.state === "completed" ? (
+                    <CheckCircle2 size={17} className="green" />
+                  ) : (
+                    <MinusCircle size={17} className="muted" />
+                  )}
+                  <div>
+                    <strong>
+                      {checkLabel(c.name, locale)}
+                      <span className="check-state">
+                        {checkState(c.state, locale)}
+                      </span>
+                    </strong>
+                    <time className="small dim">
+                      {new Date(c.at).toLocaleTimeString(locale)}
+                    </time>
+                  </div>
+                </li>
+              ))}
+          </ol>
         </details>
-        <details className="technical">
-          <summary>
-            {t.details}
-            <ChevronDown size={16} />
-          </summary>
-          <dl>
-            <dt>Report ID</dt>
-            <dd>{report.id}</dd>
-            <dt>Model</dt>
-            <dd>{report.metadata.model ?? "Unavailable"}</dd>
-            <dt>Reputation provider</dt>
-            <dd>
-              {report.metadata.reputationProvider ?? "No lookup completed"}
-            </dd>
-            <dt>Registered domain</dt>
-            <dd>{report.metadata.registeredDomain ?? "Not applicable"}</dd>
-          </dl>
-        </details>
+        {reviewNotes(report).length > 0 && (
+          <details className="technical">
+            <summary>
+              {t.limitations}
+              <ChevronDown size={16} />
+            </summary>
+            <ul>
+              {reviewNotes(report).map((l, i) => (
+                <li key={i}>{l}</li>
+              ))}
+            </ul>
+          </details>
+        )}
         <div className="button-row report-buttons">
           <CyberButton variant="secondary" type="button" onClick={copy}>
             <Copy size={16} />
